@@ -1,0 +1,94 @@
+////////二级联动ajax请求后台代码获取到网页下拉框
+//图片添加，下拉框二级联动
+$(function () {
+    $("#TableName").change(
+        function () {
+           ///获取选择的信息
+            var title = $(this).val();
+            if (title == "请选择") {
+                $("#TableAutoID").empty();
+            }
+            else if (title == "首页轮播") {
+                $("#TableAutoID").empty();
+            }
+            else if (title == "新闻资讯") {
+            ///获取新闻资讯的新闻列表标题
+                $.ajax({
+                    type: "POST",
+                    url: "../Admin/NewsShowByTableName",   //后台控制器url
+                    dateType: "Json",
+                    success: function (data) {
+                        $("#TableAutoID").empty();
+                        if (data.length != 0) {
+                          ///把新闻标题赋值到前台下拉框
+                            $("#TableAutoID").append('<option value=""></option>');
+                            $.each(data, function (key, val) {
+                                $("#TableAutoID").append('<option value="' + val.AutoID + '">' + val.titles + '</option>');
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+            else if (title == "服务") {
+                $.ajax({
+                    type: "POST",
+                    url: "../Admin/ServiceShowByTableName",
+                    dateType: "Json",
+                    success: function (data) {
+                        $("#TableAutoID").empty();
+                        $("#TableAutoID").append('<option value=""></option>');
+                        if (data.length != 0) {
+                            $.each(data, function (key, val) {
+                                $("#TableAutoID").append('<option value="' + val.AutoID + '">' + val.svrName + '</option>');
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+            else if (title == "职位") {
+                $.ajax({
+                    type: "POST",
+                    url: "../Admin/RecruitShowByTableName",
+                    dateType: "Json",
+                    success: function (data) {
+                        $("#TableAutoID").empty();
+                        $("#TableAutoID").append('<option value=""></option>');
+                        if (data.length != 0) {
+                            $.each(data, function (key, val) {
+                                $("#TableAutoID").append('<option value="' + val.AutoID + '">' + val.jobName + '</option>');
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+            else if (title == "产品") {
+                $.ajax({
+                    type: "POST",
+                    url: "../Admin/ProductShowByTableName",
+                    dateType: "Json",
+                    success: function (data) {
+                        $("#TableAutoID").empty();
+                        $("#TableAutoID").append('<option value=""></option>');
+                        if (data.length != 0) {
+                            $.each(data, function (key, val) {
+                                $("#TableAutoID").append('<option value="' + val.AutoID + '">' + val.proName + '</option>');
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+        }
+    );
+});
