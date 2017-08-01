@@ -1,4 +1,3 @@
-# ARMY
-ARMY存储库名称
+存储库
 
-Hello world I name is army-Y form China HeFei
+Hello world
